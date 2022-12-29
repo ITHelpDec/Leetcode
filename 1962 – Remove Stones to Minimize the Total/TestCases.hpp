@@ -1,5 +1,5 @@
-#ifndef Header_h
-#define Header_h
+#ifndef Header_hpp
+#define Header_hpp
 
 #include <algorithm>
 #include <fstream>
@@ -7,17 +7,7 @@
 
 class TestCases {
 public:
-    TestCases(std::size_t n) : n_(n) { generate(); }
-    
-    const std::vector<std::vector<int>>& generate()
-    {
-        for (int i = 0; i != n_; ++i) {
-            testcase_.resize(length());
-            std::generate(testcase_.begin(), testcase_.end(), [this] () { return element(); } );
-            testcases_.push_back(testcase_);
-        }
-        return testcases_;
-    }
+    TestCases(std::size_t n) { generate(n); }
     
     void write()
     {
@@ -53,7 +43,16 @@ public:
 private:
     std::vector<int> testcase_;
     std::vector<std::vector<int>> testcases_;
-    std::size_t n_;
+    
+    const std::vector<std::vector<int>>& generate(const std::size_t &n)
+    {
+        for (int i = 0; i != n; ++i) {
+            testcase_.resize(length());
+            std::generate(testcase_.begin(), testcase_.end(), [this] () { return element(); } );
+            testcases_.push_back(testcase_);
+        }
+        return testcases_;
+    }
     
     int length() {
         static std::default_random_engine e;
@@ -75,4 +74,4 @@ private:
     
 };
 
-#endif /* Header_h */
+#endif /* Header_hpp */
