@@ -13,3 +13,20 @@ public:
         return max_profit;
     }
 };
+
+// O(n) solution, O(1) space
+class Solution2 {
+public:
+    int maxProfit(std::vector<int> &prices) {
+        for (auto sell : prices) {
+            buy     = std::min(buy, sell);
+            profit_ = std::max(profit_, sell - buy);
+        }
+
+        return profit_;
+    }
+
+private:
+    int profit_ = 0;
+    int buy = INT_MAX;
+};
