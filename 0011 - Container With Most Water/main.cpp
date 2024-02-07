@@ -17,3 +17,31 @@ public:
         return result;
     }
 };
+
+// O(n) solution, using a "closing the curtains" two-pointer approach
+class Solution2 {
+public:
+    int maxArea(vector<int>& height) {
+        if (height.empty()) { return 0; }
+        
+        int left  = 0;
+        int right = height.size() - 1;
+
+        int result = 0;
+
+        while (left < right) {
+            // int bucket = (right - left) * std::minx(height[left], height[right]);
+            // result = std::max(result, bucket);
+            result = std::max(result, (right - left) * std::min(height[left], height[right]));
+
+            if      (height[left] < height[right]) { ++left; }
+            else if (height[left] > height[right]) { --right; }
+            else {
+                ++left;
+                --right;
+            }
+        }
+
+        return result;
+    }
+};
