@@ -50,3 +50,19 @@ public:
         return r;
     }
 };
+
+// reverse by rotation solution
+class Solution4 {
+public:
+    uint32_t reverseBits(uint32_t n) {
+        uint32_t reversed    =  0;
+        uint32_t byte_length = 32;
+
+        while (byte_length--) {
+            reversed = (reversed << 1) | (n & 1);
+            n >>= 1;
+        }
+
+        return reversed;
+    }
+};
