@@ -9,3 +9,17 @@ public:
         return nums.size();
     }
 };
+
+// O(n) solution, O(1) space
+class Solution2 {
+public:
+    int missingNumber(vector<int>& nums) {
+        int n     = nums.size();
+        int range = n * (n + 1) / 2;
+        
+        int sum = 0;
+        for (const int num : nums) { sum += num; }
+
+        return range - sum;
+    }
+};
