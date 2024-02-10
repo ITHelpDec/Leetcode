@@ -38,3 +38,22 @@ public:
         return dp[amount] == INT_MAX ? -1 : dp[amount];
     }
 };
+
+// the premise is "which is smaller - the current cell, or the cell 'coin' times back?"
+// e.g.
+// { 1, 2, 5 }, 6
+//
+// coin: 1, i: 1, dp: 0, 1, M, M, M, M, M, 
+// coin: 1, i: 2, dp: 0, 1, 2, M, M, M, M, 
+// coin: 1, i: 3, dp: 0, 1, 2, 3, M, M, M, 
+// coin: 1, i: 4, dp: 0, 1, 2, 3, 4, M, M, 
+// coin: 1, i: 5, dp: 0, 1, 2, 3, 4, 5, M, 
+// coin: 1, i: 6, dp: 0, 1, 2, 3, 4, 5, 6, 
+// coin: 2, i: 2, dp: 0, 1, 1, 3, 4, 5, 6, 
+// coin: 2, i: 3, dp: 0, 1, 1, 2, 4, 5, 6, 
+// coin: 2, i: 4, dp: 0, 1, 1, 2, 2, 5, 6, 
+// coin: 2, i: 5, dp: 0, 1, 1, 2, 2, 3, 6, 
+// coin: 2, i: 6, dp: 0, 1, 1, 2, 2, 3, 3, 
+// coin: 5, i: 5, dp: 0, 1, 1, 2, 2, 1, 3, 
+// coin: 5, i: 6, dp: 0, 1, 1, 2, 2, 1, 2, 
+    
