@@ -39,3 +39,21 @@ public:
         return a + b;
     }
 };
+
+// another bottom-up solition with fewer variables and operations in the loop
+class Solution {
+public:
+    int climbStairs(int n) {
+        if (n < 4) { return n; }
+        
+        int previous = 2;
+        int current  = 3;
+
+        for (int i = 3; i != n; ++i) {
+            current += previous;
+            previous = current - previous;
+        }
+
+        return current;
+    }
+};
