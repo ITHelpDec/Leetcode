@@ -28,11 +28,9 @@ public:
     int coinChange(vector<int>& coins, int amount) {
         std::vector<std::size_t> dp(amount + 1, INT_MAX); 
         dp[0] = 0;
-
-        std::sort(coins.begin(), coins.end()); 
         
         for (const std::size_t coin : coins) {
-            for (std::size_t i = coin; i <= amount; ++i){
+            for (std::size_t i = coin; i <= amount; ++i) {
                 dp[i] = std::min(dp[i], 1 + dp[i - coin]);
             }
         }
