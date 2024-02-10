@@ -47,3 +47,29 @@ public:
 // i: 7	j: 6	dp: 1 1 1 2 2 3 4 4 1 
 //
 // max = 4
+
+
+// O(nlogn) solution - binary search within traversal
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        std::vector<int> dp(nums.size(), 0);
+        
+        int longest = 0;
+
+        for (const int num : nums) {
+            int i = 0;
+            int j = longest;
+
+            while (i != j) {
+                int middle = (i + j) / 2;
+                dp[middle] < num ? i = middle + 1 : j = middle;
+            }
+            
+            dp[i] = num;
+            if (i == longest) { ++longest; }
+        }
+
+        return longest;
+    }
+};
