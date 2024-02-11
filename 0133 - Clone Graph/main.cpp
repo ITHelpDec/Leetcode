@@ -20,3 +20,40 @@ public:
 private:
     std::unordered_map<Node*, Node*> clone_;
 };
+
+// BFS solution
+// create initial empty clone node and add it to a queue
+// for as long as there are elements in the queue:
+// // create a working node from the front of the queue
+// // // add each neighbour to the queue for processing later
+// // // assign the neighbour to our current node by adding it to our clone map 
+class Solution2 {
+public:
+    Node* cloneGraph(Node* node) {
+        if (!node) { return node; }
+
+        Node *first = new Node(node->val, {});
+        clone_[node] = first;
+
+        std::queue<Node*> q;
+        q.push(node);
+
+        while (!q.empty()) {
+            Node *current = q.front();
+            q.pop();
+
+            for (const auto &neighbor : current->neighbors) {
+                if (clone_.find(neighbor) == clone_.end()) {
+                    clone_[neighbor] = new Node(neighbor->val, {});
+                    q.push(neighbor);
+                }
+
+                clone_[current]->neighbors.emplace_back(clone_[neighbor]);
+            }
+        }
+
+        return clone_[node];
+    }
+private:
+    std::unordered_map<Node*, Node*> clone_;
+};
