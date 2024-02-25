@@ -36,3 +36,46 @@ public:
         return (answer == INT_MAX) ? 0 : answer;
     }
 };
+
+// faster DFS algorithm
+class Solution {
+public:
+    int minimumMoves(std::vector<std::vector<int>> &grid) {
+        dfs(0, 0, grid);
+        return min_moves;
+    }
+
+private:
+    int min_moves = INT_MAX;
+
+    void dfs(int current, int moves, std::vector<std::vector<int>>& grid) {
+        if (min_moves < moves) { return; }
+
+        if (current == 9) {
+            min_moves = std::min(min_moves, moves);
+            return;
+        }            
+
+        int i = current / 3;
+        int j = current % 3;
+
+        if (grid[i][j]) {
+            dfs(current + 1, moves, grid);
+            return;
+        }
+
+        for (int a = 0; a != 3; ++a) {
+            for (int b = 0; b != 3; ++b) {
+                if (grid[a][b] < 2) { continue; }
+                
+                --grid[a][b];
+                ++grid[i][j];
+
+                dfs(current + 1, moves + std::abs(a - i) + std::abs(b - j), grid);
+                
+                ++grid[a][b];
+                --grid[i][j];
+            }
+        }
+    }
+};
